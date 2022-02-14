@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background-color: #aef;
+            /* border: black solid 1px; */
+        }
+        .ball {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background-color: #86a5df;
+            /* border: black solid 1px; */
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="ball" draggable="true">1</div>
+    <div class="ball" draggable="true">2</div>
+    <div class="ball" draggable="true">3</div>
+</div>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+<script>
+    const box = $('.box');
+    const ball = $('.ball');
+    const listener = function(event){
+        console.log(event.type, event.target);
+    };
+
+    box.on('dragstart', function(event){
+        const tid = event.target.id;
+        event.originalEvent.dataTransfer.setData('text', tid);
+    });
+
+    box.on('dragover', function(event){
+        event.preventDefault();
+    });
+    box.on('drop', function(event){
+        const t = $(event.target);
+        if(t.hasClass('box')){
+            const id = event.originalEvent.dataTransfer.getData('text');
+            t.append( $('#'+id) );  // 丟過去
+            // t.append( $('#'+id).clone() );   // 丟過去複製
+        }
+    });
+
+</script>
+</body>
+</html>
