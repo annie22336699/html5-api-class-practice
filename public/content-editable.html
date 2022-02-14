@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>content-editable</title>
+    <style>
+        #info {
+            border: 2px dotted blue;
+        }
+    </style>
+</head>
+<body>
+    <div id="info" contenteditable="true">
+        <p>
+            拉拉拉拉
+            <br> 123
+            486
+        </p>
+    </div>
+    
+    <script>
+        const info = document.querySelector('#info');
+
+        info.addEventListener('keyup', function(){
+            // console.log(info.innerHTML);  // 用這行會導致標籤一起出現
+            console.log(info.innerText);
+            localStorage.setItem('能不能用中文取mydata', info.innerText);
+        })
+
+        const defaultData = localStorage.getItem('能不能用中文取mydata');
+        if(defaultData){
+            info.innerText = defaultData;
+            //  localStorage即使重啟還是會記憶儲存的值，該值是儲存在硬碟裡的，除非手動刪除不然不會消失
+        }
+
+    </script>
+</body>
+</html>
