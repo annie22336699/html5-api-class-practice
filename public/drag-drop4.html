@@ -6,12 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        body{
+            margin:0px;
+        }
         .box {
             position: absolute;
             width: 300px;
             height: 300px;
             background-color: #aef;
             /* border: black solid 1px; */
+            margin: 10px;
         }
         .ball {
             display: inline-block;
@@ -32,6 +36,7 @@
     <div class="ball" draggable="true">2</div>
     <div class="ball" draggable="true">3</div>
 </div>
+<div class="box" style="left: 310px; top: 0px"></div>
 <script
   src="https://code.jquery.com/jquery-3.6.0.min.js"
   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -56,7 +61,13 @@
         const t = $(event.target);
         if(t.hasClass('box')){
             if(dragTarget){
-                t.append( dragTarget );
+                // t.append( dragTarget );
+                t.append( dragTarget.clone() );  // 複製
+
+                // 複製後，複製的東西無法更改
+                // const clone = dragTarget.clone();
+                // clone.removeAttr( 'draggable' );
+                // t.append( clone );
             }
         }
         dragTarget = null;
